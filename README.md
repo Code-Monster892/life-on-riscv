@@ -2,22 +2,10 @@
 
 A custom 5-stage pipelined **RV32IM RISC-V Processor** implemented in SystemVerilog, running a bare-metal C implementation of **Conway's Game of Life** rendered via Memory-Mapped I/O (MMIO) and SDL2 graphics.
 
----
+<img width="642" height="426" alt="image" src="https://github.com/user-attachments/assets/0cba3d8a-e554-45d7-9046-138b0b38803e" />
+<img width="645" height="427" alt="image" src="https://github.com/user-attachments/assets/05b938b1-ced8-422d-afd5-bdf5dcd6ca98" />
+<img width="642" height="426" alt="image" src="https://github.com/user-attachments/assets/c20571b1-6adf-41df-8a2f-201f2b552e2b" />
 
-## ⚡ System Architecture
-
-```mermaid
-graph TD
-    IF["Stage 1: Fetch (IF)"] --> ID["Stage 2: Decode (ID)"]
-    ID --> EX["Stage 3: Execute (EX)"]
-    EX --> MEM["Stage 4: Memory (MEM)"]
-    MEM --> WB["Stage 5: Writeback (WB)"]
-    
-    EX --> MUL["Hardware Multiplier / Divider"]
-    EX --> HZD["Hazard Unit (Forwarding & Stalls)"]
-    MEM --> MMIO["MMIO Router (VRAM & Timers)"]
-    MMIO --> SDL["Verilator + SDL2 Framebuffer (320x200 ARGB)"]
-```
 
 ---
 
