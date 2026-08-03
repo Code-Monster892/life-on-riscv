@@ -83,5 +83,21 @@ make clean
 
 ---
 
-## 📜 License
-MIT License. Created for bare-metal RISC-V processor architecture exploration.
+## Conway's Game of Life & Architectural Assessment Overview
+
+Conway's Game of Life is a zero-player cellular automaton devised by mathematician John Conway. The game evolves on a 2D grid of square cells, where each cell exists in one of two possible states: alive or dead. The state of the board progresses through discrete generations based on a deterministic set of mathematical rules applied to every cell simultaneously.
+
+#### The Rules:
+Every cell interacts with its eight immediate neighbors (horizontally, vertically, and diagonally). For each generation step, the following state transitions occur:
+Underpopulation: Any live cell with fewer than two live neighbors dies.  
+Survival: Any live cell with two or three live neighbors lives on to the next generation.  
+Overpopulation: Any live cell with more than three live neighbors dies.  
+Reproduction: Any dead cell with exactly three live neighbors becomes a live cell.  
+
+## How It Stresses & Assesses the RV32IM Architecture
+
+Running Conway's Game of Life bare-metal is an exceptionally rigorous benchmark for a custom CPU pipeline. Rather than executing isolated synthetic tests, the algorithm forces the hardware to resolve real-world software bottlenecks:
+1. Calculating cell neighbors requires continuous reads and updates across 2D array buffers in memory. This constantly exercises the Memory stage, testing the Byte-Enable [be.sv](be.sv) and Reader [reader.sv](reader.sv) units during byte-level (lb, sb) load/store operations.
+2. Evaluating board boundaries and neighbor thresholds creates dense nested loops. The algorithm heavily relies on conditional branch instructions (beq, bne, blt, bge), forcing the Hazard Unit [hazard_unit.sv](hazard_unit.sv) to resolve control hazards through EX-stage branch detection and 2-cycle pipeline flushes.
+3. Frequent state updates between adjacent loop iterations create immediate Read-After-Write (RAW) data dependencies. This tests the EX/MEM and MEM/WB forwarding paths, verifying that data bypasses function flawlessly without stalling unnecessarily
+4. Index calculations for multi-dimensional arrays (mapping 2D row/column coordinates to 1D flat memory space) natively generate explicit 32-bit integer multiplication instructions (mul). This validates the Hardware Multiplier [multiplier.sv](multiplier.sv) under continuous execution, ensuring hardware math results correctly route through the Write-Back stage via result_src.
