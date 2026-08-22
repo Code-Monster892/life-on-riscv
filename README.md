@@ -11,6 +11,7 @@ A custom 5-stage pipelined **RV32IM RISC-V Processor** implemented in SystemVeri
 <img width="642" height="426" alt="image" src="https://github.com/user-attachments/assets/c20571b1-6adf-41df-8a2f-201f2b552e2b" />
 
 
+
 ---
 
 ## ✨ Features
@@ -105,3 +106,6 @@ Running Conway's Game of Life bare-metal is an exceptionally rigorous benchmark 
 2. Evaluating board boundaries and neighbor thresholds creates dense nested loops. The algorithm heavily relies on conditional branch instructions (beq, bne, blt, bge), forcing the Hazard Unit [hazard_unit.sv](hazard_unit.sv) to resolve control hazards through EX-stage branch detection and 2-cycle pipeline flushes.
 3. Frequent state updates between adjacent loop iterations create immediate Read-After-Write (RAW) data dependencies. This tests the EX/MEM and MEM/WB forwarding paths, verifying that data bypasses function flawlessly without stalling unnecessarily
 4. Index calculations for multi-dimensional arrays (mapping 2D row/column coordinates to 1D flat memory space) natively generate explicit 32-bit integer multiplication instructions (mul). This validates the Hardware Multiplier [multiplier.sv](multiplier.sv) under continuous execution, ensuring hardware math results correctly route through the Write-Back stage via result_src.
+
+<img width="650" height="434" alt="ezgif-7edf1143af9776b6" src="https://github.com/user-attachments/assets/39cbad67-5f51-4de5-adcb-a1ad7284f885" />
+
