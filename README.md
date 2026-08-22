@@ -1,6 +1,10 @@
 # Bare-Metal RISC-V 32-Bit CPU — Conway's Game of Life
 
-A custom 5-stage pipelined **RV32IM RISC-V Processor** implemented in SystemVerilog, running a bare-metal C implementation of **Conway's Game of Life** rendered via Memory-Mapped I/O (MMIO) and SDL2 graphics.
+A custom 5-stage pipelined **RV32IM RISC-V Processor** implemented in SystemVerilog, running a bare-metal C implementation of **Conway's Game of Life** rendered via Memory-Mapped I/O (MMIO) and SDL2 graphics. 
+
+(NEW!! Added Project report as a pdf consisting of necessary theoretical data for the repo)
+
+[Read Life on RISC-V (PDF)](./life-on-riscv.pdf)
 
 <img width="642" height="426" alt="image" src="https://github.com/user-attachments/assets/0cba3d8a-e554-45d7-9046-138b0b38803e" />
 <img width="645" height="427" alt="image" src="https://github.com/user-attachments/assets/05b938b1-ced8-422d-afd5-bdf5dcd6ca98" />
